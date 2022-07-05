@@ -247,12 +247,14 @@ func (m *Manager) watchPCIChanges(ctx context.Context, e2nodeID topoapi.ID) {
 		if e.Type == metrics.UpdatedPCI && e2nodeID == e.Value.Value.E2NodeID {
 			key := e.Value.Key
 			header, err := control.CreateRcControlHeader(key.CellGlobalID)
+			log.Infof("header of the control request : %v", header)
 			if err != nil {
 				log.Warn(err)
 			}
 			newPci := e.Value.Value.Metric.PCI
 			log.Debugf("send control message for key: %v / pci: %v", e.Key, newPci)
 			payload, err := control.CreateRcControlMessage(int64(newPci), key.CellGlobalID)
+			log.Infof("message of the control request : %v", payload)
 			if err != nil {
 				log.Warn(err)
 			}
