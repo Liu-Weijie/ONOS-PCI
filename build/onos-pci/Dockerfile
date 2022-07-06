@@ -19,7 +19,7 @@ COPY build/ /go/src/github.com/onosproject/onos-pci/build
 RUN cd /go/src/github.com/onosproject/onos-pci && GOFLAGS=-mod=vendor make ${ONOS_MAKE_TARGET}
 
 FROM alpine:3.11
-RUN apk add --no-cache libc6-compat
+RUN apk add libc6-compat
 
 USER nobody
 

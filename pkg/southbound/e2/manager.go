@@ -122,8 +122,11 @@ func (m *Manager) getRanFunction(serviceModelsInfo map[string]*topoapi.ServiceMo
 	log.Info("Service models:", serviceModelsInfo)
 	for _, sm := range serviceModelsInfo {
 		smName := strings.ToLower(sm.Name)
+		log.Infof("ServiceModel name is : %v", smName)
+		log.Infof("ServiceModel OID is : %v", sm.OID)
 		if smName == string(m.serviceModel.Name) && sm.OID == oid {
 			rcRanFunction := &topoapi.RCRanFunction{}
+			log.Infof("rcRanFunction is : %v", rcRanFunction)
 			for _, ranFunction := range sm.RanFunctions {
 				if ranFunction.TypeUrl == ranFunction.GetTypeUrl() {
 					err := prototypes.UnmarshalAny(ranFunction, rcRanFunction)
@@ -247,14 +250,12 @@ func (m *Manager) watchPCIChanges(ctx context.Context, e2nodeID topoapi.ID) {
 		if e.Type == metrics.UpdatedPCI && e2nodeID == e.Value.Value.E2NodeID {
 			key := e.Value.Key
 			header, err := control.CreateRcControlHeader(key.CellGlobalID)
-			log.Infof("header of the control request : %v", header)
 			if err != nil {
 				log.Warn(err)
 			}
 			newPci := e.Value.Value.Metric.PCI
 			log.Debugf("send control message for key: %v / pci: %v", e.Key, newPci)
 			payload, err := control.CreateRcControlMessage(int64(newPci), key.CellGlobalID)
-			log.Infof("message of the control request : %v", payload)
 			if err != nil {
 				log.Warn(err)
 			}
