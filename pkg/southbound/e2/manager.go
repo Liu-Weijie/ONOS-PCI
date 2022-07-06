@@ -127,7 +127,7 @@ func (m *Manager) getRanFunction(serviceModelsInfo map[string]*topoapi.ServiceMo
 		log.Infof("ServiceModel name in pci xapp is : %v", m.serviceModel.Name)
 		if smName == string(m.serviceModel.Name) && sm.OID == oid {
 			rcRanFunction := &topoapi.RCRanFunction{}
-			log.Infof("Service Model RanFunctions are : %v", rcRanFunction)
+			log.Infof("Service Model RanFunctions are : %v", sm.RanFunctions)
 			for _, ranFunction := range sm.RanFunctions {
 				log.Infof("ranFunction is : %v", ranFunction)
 				if ranFunction.TypeUrl == ranFunction.GetTypeUrl() {
