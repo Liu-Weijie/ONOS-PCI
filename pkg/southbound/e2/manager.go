@@ -124,10 +124,12 @@ func (m *Manager) getRanFunction(serviceModelsInfo map[string]*topoapi.ServiceMo
 		smName := strings.ToLower(sm.Name)
 		log.Infof("ServiceModel name is : %v", smName)
 		log.Infof("ServiceModel OID is : %v", sm.OID)
+		log.Infof("ServiceModel name in pci xapp is : %v", m.serviceModel.Name)
 		if smName == string(m.serviceModel.Name) && sm.OID == oid {
 			rcRanFunction := &topoapi.RCRanFunction{}
-			log.Infof("rcRanFunction is : %v", rcRanFunction)
+			log.Infof("Service Model RanFunctions are : %v", rcRanFunction)
 			for _, ranFunction := range sm.RanFunctions {
+				log.Infof("ranFunction is : %v", ranFunction)
 				if ranFunction.TypeUrl == ranFunction.GetTypeUrl() {
 					err := prototypes.UnmarshalAny(ranFunction, rcRanFunction)
 					if err != nil {
